@@ -11,6 +11,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "packagerOpts": {
+      "sourceExts": [
+        "svg",
+         "jpg",
+         "jpeg"
+      ]
+    },
     "assetBundlePatterns": [
       "**/*"
     ],

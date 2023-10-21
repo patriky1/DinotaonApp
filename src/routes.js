@@ -10,6 +10,7 @@ const Tab = createBottomTabNavigator();
 
 export default function Routes(){
     return(
+        
         <Tab.Navigator
         screenOptions={{
             tabBarStyle:{
@@ -64,5 +65,6 @@ export default function Routes(){
         />
 
       </Tab.Navigator>
+      
     )
 }

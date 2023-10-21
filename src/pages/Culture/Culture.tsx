@@ -1,26 +1,28 @@
-import React, { useEffect, useState, useRef } from 'react';
-import MapView, { Marker } from 'react-native-maps';
-import Carousel, { Pagination } from 'react-native-snap-carousel';
-import { Text } from 'react-native';
+import React, { useEffect, useState, useRef } from "react";
+import MapView, { Marker } from "react-native-maps";
+import Carousel, { Pagination } from "react-native-snap-carousel";
+import { Text } from "react-native";
 import {
   requestForegroundPermissionsAsync,
   getCurrentPositionAsync,
   LocationObject,
   LocationAccuracy,
-} from 'expo-location';
+  LocationObjectCoords,
+} from "expo-location";
 
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image } from "react-native";
 
-import image1 from '../imagens/fundo.jpeg';
-import image2 from '../imagens/Cc.jpg';
-import image3 from '../imagens/igreja.jpeg';
-import image4 from '../imagens/entrada.jpeg';
-import image5 from '../imagens/igrejaBJ.jpeg';
+import image1 from "../imagens/fundo.jpeg";
+import image2 from "../imagens/Cc.jpg";
+import image3 from "../imagens/igreja.jpeg";
+import image4 from "../imagens/entrada.jpeg";
+import image5 from "../imagens/igrejaBJ.jpeg";
 
 export default function Culture() {
-  const [location, setLocation] = useState<LocationObject | null>(null);
+  const [location, setLocation] = useState<LocationObject | any>({
+    coords: { latitude: -6.759720362446049, longitude: -38.23042701779621 },
+  });
   const [activeSlide, setActiveSlide] = useState(0);
-
   const mapRef = useRef<MapView>(null);
   const carouselRef = useRef<Carousel<any>>(null);
 
@@ -35,37 +37,37 @@ export default function Culture() {
   useEffect(() => {
     requestLocationPermissions();
   }, []);
+  type Location = {
+    latitude: number;
+    longitude: number;
+  };
 
   const handleMarkerPositionChange = (index: number) => {
-    const locations = [
-      { latitude: -6.759720362446049, 
-        longitude: -38.23042701779621, },// Localização da imagem 1
-         
-      { latitude: -6.758192482849701, 
-        longitude: -38.22944967361301,  },// Localização da imagem 2
-         
-      { latitude:  -6.758358353317611, 
-        longitude:  -38.23261834842211,  },
-
-      { latitude:  -6.73218035301906, 
-        longitude:  -38.26181755953773, },
-
-      { latitude:  -6.758262464748601,
-         longitude:  -38.228530661975284,
-  },
-     
+    const locations: Location[] = [
+      { latitude: -6.759720362446049, longitude: -38.23042701779621 },
+      { latitude: -6.758192482849701, longitude: -38.22944967361301 },
+      { latitude: -6.758358353317611, longitude: -38.23261834842211 },
+      { latitude: -6.73218035301906, longitude: -38.26181755953773 },
+      { latitude: -6.758262464748601, longitude: -38.228530661975284 },
     ];
 
-    const newCoordinate = locations[index];
+    const newCoordinate: Location = locations[index];
 
     setLocation({
       ...location!,
-      coords: newCoordinate,
+      coords: {
+        ...location!.coords,
+        ...newCoordinate,
+      },
     });
 
-    mapRef.current?.animateCamera({
-      center: newCoordinate,
-    });
+    mapRef.current?.animateCamera(
+      {
+        center: newCoordinate,
+        pitch: 70,
+      },
+      { duration: 1000 }
+    );
   };
 
   const renderCarouselItem = ({ item }: { item: any }) => {
@@ -131,51 +133,51 @@ export default function Culture() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   map: {
     flex: 1,
-    width: '100%',
+    width: "100%",
   },
   carouselItem: {
+    marginBottom: 55,
     marginTop: 20,
     width: 280,
     height: 255,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 8,
-    backgroundColor: 'white',
-    shadowColor: 'black',
+    backgroundColor: "white",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 2,
   },
   carouselImage: {
-    
-    borderRadius:8,
+    borderRadius: 8,
     width: 260,
     height: 220,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   paginationContainer: {
     paddingVertical: 1,
-    margin:0,
-    marginTop:-400,
+    margin: 0,
+    marginTop: -400,
   },
   paginationDot: {
-    marginBottom:3,
+    marginBottom: 3,
     width: 8,
     height: 8,
     borderRadius: 4,
     marginHorizontal: 7,
-    backgroundColor: 'rgba(0, 0, 0, 0.92)',
+    backgroundColor: "rgba(0, 0, 0, 0.92)",
   },
   paginationInactiveDot: {
-    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
   },
 });
