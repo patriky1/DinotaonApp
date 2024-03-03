@@ -14,8 +14,8 @@
     "packagerOpts": {
       "sourceExts": [
         "svg",
-         "jpg",
-         "jpeg"
+        "jpg",
+        "jpeg"
       ]
     },
     "assetBundlePatterns": [
@@ -28,10 +28,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.patrikybrito.DinoTaON"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3ae0039c-942d-4258-9e18-23f4079a58f1"
+      }
     }
   }
 }

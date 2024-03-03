@@ -44,7 +44,7 @@ const Home = () => {
     <View style={styles.container}>
       <ImageBackground source={backgroundImages[currentImageIndex]} style={styles.image}>
         <View style={styles.logo}>
-          <Image source={Logo} />
+          <Image style={styles.logo} source={Logo} />
         </View>
         <Pressable style={styles.button} onPress={() => navigation.navigate("Cidade")}>
           <Text style={styles.text}>Saiba mais</Text>
@@ -59,10 +59,15 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logo: {
+    width: 200,
+    height: 200,
+    display: "flex",
+    position: 'relative',
     justifyContent: "center",
     alignItems: "center",
     marginTop: 80,
-    marginLeft: 15,
+    marginLeft: "auto",
+    marginRight: "auto"
   },
   image: {
     flex: 1,
